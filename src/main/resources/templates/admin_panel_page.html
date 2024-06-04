@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exam System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/admin_panel_page_style.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/1571ce0189.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+    <div class="top-bar">
+        <button type="button" class="btn btn-secondary menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+        <h1>
+            <span th:if="${loggedInUser}" th:text="${'Witaj, ' + loggedInUser.firstName + ' ' + loggedInUser.lastName + '!'}"></span>
+        </h1>
+        <div class="auth-buttons">
+                <span th:if="${loggedInUser}">
+                    <button type="button" class="btn btn-secondary logout-button" onclick="logout()">Wyloguj się</button>
+                </span>
+        </div>
+    </div>
+</header>
+
+<div class="toolbar-menu">
+    <nav class="side-menu">
+        <button type="button" class="btn btn-secondary menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-times"></i> Zamknij
+        </button>
+        <span th:if="${role eq 'Administrator'}">
+                <a href="/admin_panel">Panel administratora</a>
+            </span>
+        <a href="/main_page">Strona główna</a>
+        <a href="/contact_us">Kontakt</a>
+        <a href="/about_us">O nas</a>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="admin-panel">
+        <button onclick="goBack()" class="btn btn-secondary">Powrót</button>
+        <hr class = "style-seven">
+        <h2 class="options">Usuwanie użytkowników</h2>
+        <br>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nazwa użytkownika</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>E-mail</th>
+                <th>Rola</th>
+                <th>Akcje</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Tutaj dodajemy pętlę Thymeleaf, aby wyświetlić wszystkich użytkowników -->
+            <tr th:each="user : ${getAllUsers}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.role}"></td>
+                <td>
+                    <!-- Przycisk do usuwania użytkownika -->
+                    <form th:action="@{'/deleteUser/' + ${user.id}}" method="post">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Czy na pewno chcesz usunąć tego użytkownika?')">Usuń</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <hr class = "style-seven">
+        <h2 class="options">Dodawanie użytkowników</h2>
+        <br>
+        <form th:action="@{'/addUser'}" method="post">
+            <div class="form-group">
+                <input type="text" name="username" placeholder="Nazwa użytkownika" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Hasło" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="firstName" placeholder="Imię" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="lastName" placeholder="Nazwisko" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="E-mail" required>
+            </div>
+            <div class="form-group">
+                <input type="radio" name="role" value="EGZAMINATOR" id="examinerRadio"><label for="examinerRadio">Egzaminator</label>
+                <input type="radio" name="role" value="EGZAMINOWANY" id="examineeRadio"><label for="examineeRadio">Egzaminowany</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Dodaj użytkownika</button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 ExamSystem. Wszystkie prawa zastrzeżone.</p>
+</footer>
+
+
+<script>
+    function toggleMenu() {
+        var sideMenu = document.querySelector('.side-menu');
+        sideMenu.classList.toggle('open');
+    }
+    function logout() {
+        window.location.href = "/logout";
+    }
+    function goBack() {
+        window.history.back();
+    }
+</script>
+</body>
+</html>

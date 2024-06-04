@@ -102,40 +102,39 @@ h1 {
     width: 10px;
 }
 
-.container {
-    padding: 2rem;
+.container{
+    margin-top: 10px;
+    background-color: #8ba3ed;
+    padding: 20px;
+    border-radius: 5px;
     text-align: center;
 }
 
 footer {
+    margin-top: 10px;
     background-color: #004080;
     color: white;
     text-align: center;
     padding: 1rem 0;
-    position: fixed;
     bottom: 0;
     width: 100%;
 }
 
-.banner {
-    width: 100%;
-    height: auto; /* Automatyczna wysokość banera */
-    overflow: hidden; /* Ukryj nadmiar obrazu */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #020c13; /* Kolor tła dla obszaru banera */
+hr.style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: white;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
 }
-.banner img {
-    /* width: 100%; */
-    /* Usunięcie width: 100%; aby zachować oryginalny rozmiar obrazu */
-    height: auto;
-}
-
-.login-register-text {
-    text-align: center;
-}
-
-.login-register-text span {
-    margin: 0 10px; /* Dodaj margines między elementami */
+hr.style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
 }

@@ -34,7 +34,7 @@ public class LoginController {
             return "redirect:/main_page";
         } else {
             redirectAttributes.addFlashAttribute("errorMessage", "Błąd logowania");
-            return "redirect:/login_page";
+            return "redirect:/login";
         }
     }
 

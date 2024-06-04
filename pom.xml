@@ -13,11 +13,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>B4_2024_ExamSystem</name>
 	<description>exam system app</description>
-    <properties>
-        <java.version>17</java.version>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-    </properties>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

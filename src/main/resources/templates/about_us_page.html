@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Exam System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/main_page_style.css}">
+    <link rel="stylesheet" th:href="@{/css/about_us_page_style.css}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/1571ce0189.js" crossorigin="anonymous"></script>
 </head>
@@ -25,10 +25,6 @@
     </div>
 </header>
 
-<div class="banner">
-    <img th:src="@{/images/baner.jpg}" alt="zdjecie">
-</div>
-
 <div class="toolbar-menu">
     <nav class="side-menu">
         <button type="button" class="btn btn-secondary menu-toggle" onclick="toggleMenu()">
@@ -43,38 +39,56 @@
     </nav>
 </div>
 
-<div class="container">
-    <h2>Witamy w ExamSystem</h2>
-    <br>
-    <p>ExamSystem to nowoczesna aplikacja do przeprowadzania egzaminów online. Nasza platforma oferuje szereg funkcji, które ułatwiają tworzenie, zarządzanie i przeprowadzanie egzaminów w sposób bezpieczny i efektywny.</p>
-    <br>
-    <span th:unless="${loggedInUser}">
-        <p class="login-register-text">
-            <span>Jeżeli posiadasz konto:</span>
-            <button type="button" class="btn btn-secondary login-button" onclick="redirectToLogin()">Zaloguj się</button>
-            <span>lub</span>
-            <span>zarejestruj się teraz:</span>
-            <button type="button" class="btn btn-secondary register-button" onclick="redirectToRegister()">Zarejestruj się</button>
-        </p>
-    </span>
-</div>
+<section class="about-us-section">
+    <div class="about-us-container">
+        <div class="about-us-content">
+            <h2>O nas</h2>
+            <p>Witajcie! Jesteśmy zespołem pasjonatów, którzy połączyli swoje umiejętności i doświadczenie, aby dostarczać najwyższej jakości usługi.</p>
+            <p>Nasza firma powstała z myślą o spełnianiu oczekiwań naszych klientów poprzez innowacyjne podejście do projektów oraz dbałość o każdy detal.</p>
+        </div>
+        <div class="about-us-team">
+            <h3>Nasz Zespół</h3>
+            <div class="team-member">
+                <img th:src="@{/images/osoba1.jpg}" alt="Zdjęcie Osoby 1">
+                <h4>Daniel Szałaj</h4>
+                <p>Programista</p>
+            </div>
+            <div class="team-member">
+                <img th:src="@{/images/osoba2.jpg}" alt="Zdjęcie Osoby 2">
+                <h4>Marcin Zaczeniuk</h4>
+                <p>Programista</p>
+            </div>
+            <div class="team-member">
+                <img th:src="@{/images/osoba3.jpg}" alt="Zdjęcie Osoby 3">
+                <h4>Adrian Tychoniuk</h4>
+                <p>Programista</p>
+            </div>
+            <div class="team-member">
+                <img th:src="@{/images/osoba4.jpg}" alt="Zdjęcie Osoby 4">
+                <h4>Gabriel Żeruń</h4>
+                <p>Programista</p>
+            </div>
+        </div>
+    </div>
+</section>
 
 <footer>
     <p>&copy; 2024 ExamSystem. Wszystkie prawa zastrzeżone.</p>
 </footer>
-
-
 <script>
     function toggleMenu() {
         var sideMenu = document.querySelector('.side-menu');
         sideMenu.classList.toggle('open');
     }
+
     function redirectToLogin() {
         window.location.href = "/login";
     }
+
     function redirectToRegister() {
         window.location.href = "/register";
     }
+
     function logout() {
         window.location.href = "/logout";
     }

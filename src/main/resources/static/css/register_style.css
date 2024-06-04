@@ -181,3 +181,88 @@ body {
     display: block;
     margin: 0 auto;
 }
+
+.register-box form button[type="submit"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+    content: "Tak";
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: limegreen;
+}
+
+input:checked+.slider:before {
+    transform: translateX(26px);
+}
+
+/* Style for the SlideTree text */
+.slider:before {
+    color: black;
+    display: block;
+    position: relative;
+    transform: translate(50%, -50%);
+    top: 50%;
+    left: 30%;
+    font-size: 10px;
+}
+
+input:checked+.slider:before {
+    left: calc(-38%);
+    top: calc(12%);
+
+}
+.labelAnswer{
+
+    display: flex; /* Ustawienie kontenera jako flexbox */
+    align-items: center; /* Wyśrodkowanie elementów wzdłuż osi pionowej */
+
+}
+.labelAnswerText{
+    color: white;
+    float: right;
+    margin-left: 10%;
+}

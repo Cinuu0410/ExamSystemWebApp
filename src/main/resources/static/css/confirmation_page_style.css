@@ -102,12 +102,9 @@ h1 {
     width: 10px;
 }
 
-.container {
-    padding: 2rem;
-    text-align: center;
-}
 
 footer {
+    margin-top: 10px;
     background-color: #004080;
     color: white;
     text-align: center;
@@ -117,25 +114,21 @@ footer {
     width: 100%;
 }
 
-.banner {
-    width: 100%;
-    height: auto; /* Automatyczna wysokość banera */
-    overflow: hidden; /* Ukryj nadmiar obrazu */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #020c13; /* Kolor tła dla obszaru banera */
-}
-.banner img {
-    /* width: 100%; */
-    /* Usunięcie width: 100%; aby zachować oryginalny rozmiar obrazu */
-    height: auto;
+.btn-secondary {
+    background-color: #777;
+    color: #fff;
 }
 
-.login-register-text {
-    text-align: center;
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
 }
 
-.login-register-text span {
-    margin: 0 10px; /* Dodaj margines między elementami */
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.spacing {
+    width: 10px;
 }

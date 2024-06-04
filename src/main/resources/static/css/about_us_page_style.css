@@ -102,12 +102,67 @@ h1 {
     width: 10px;
 }
 
-.container {
-    padding: 2rem;
+.about-us-section {
+    background-color: #f8f8f8;
+    padding: 50px 0;
+}
+
+.about-us-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Stylizacja dla sekcji z treścią "o nas" */
+.about-us-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+.about-us-content h2 {
+    color: #333;
+}
+
+.about-us-content p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Stylizacja dla sekcji z zespołem */
+.about-us-team {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+}
+
+.team-member {
     text-align: center;
 }
 
+.team-member img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    margin-right: 5px;
+}
+
+.team-member h4 {
+    color: #333;
+}
+
+.team-member p {
+    color: #666;
+}
+
+h3{
+    margin-right: 10px;
+}
 footer {
+    margin-top: 10px;
     background-color: #004080;
     color: white;
     text-align: center;
@@ -115,27 +170,4 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-}
-
-.banner {
-    width: 100%;
-    height: auto; /* Automatyczna wysokość banera */
-    overflow: hidden; /* Ukryj nadmiar obrazu */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #020c13; /* Kolor tła dla obszaru banera */
-}
-.banner img {
-    /* width: 100%; */
-    /* Usunięcie width: 100%; aby zachować oryginalny rozmiar obrazu */
-    height: auto;
-}
-
-.login-register-text {
-    text-align: center;
-}
-
-.login-register-text span {
-    margin: 0 10px; /* Dodaj margines między elementami */
 }

@@ -102,12 +102,9 @@ h1 {
     width: 10px;
 }
 
-.container {
-    padding: 2rem;
-    text-align: center;
-}
 
 footer {
+    margin-top: 10px;
     background-color: #004080;
     color: white;
     text-align: center;
@@ -117,25 +114,109 @@ footer {
     width: 100%;
 }
 
-.banner {
-    width: 100%;
-    height: auto; /* Automatyczna wysokość banera */
-    overflow: hidden; /* Ukryj nadmiar obrazu */
+ul {
+    list-style: none;
+}
+
+input {
+    overflow: hidden;
+}
+
+.section-title {
+    position: relative;
+    font-size: 30px;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    margin: 0 0 35px;
+}
+
+.sec-pad {
+    padding: 60px 0 0;
+    margin: 50px 0;
+}
+
+.contact-sec {
+    align-item: center;
+    display: flex;
+    background-color: #8ba3ed;
+}
+
+.contact-sec .contact-ul li,
+.contact-ul b {
+    font-size: 20px;
+    margin: 10px 0;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    word-wrap: break-word;
+}
+
+.contact-sec .contact-ul i {
+    font-size: 18px;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+.contact-detail a {
+    color: #000;
+    text-decoration: none;
+}
+
+.contact-sec .contact-ul li b:hover {
+    color: white;
+}
+
+.contact-detail span {
+    width: 400px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    background-color: #020c13; /* Kolor tła dla obszaru banera */
 }
-.banner img {
-    /* width: 100%; */
-    /* Usunięcie width: 100%; aby zachować oryginalny rozmiar obrazu */
-    height: auto;
-}
-
-.login-register-text {
-    text-align: center;
+.contact-detail span a {
+    font-size: 20px;
+    padding: 6px 12px;
+    color: #000;
+    border-radius: 50%;
+    margin: 0px 5px;
 }
 
-.login-register-text span {
-    margin: 0 10px; /* Dodaj margines między elementami */
+
+form.contFrm {
+    max-width: 396px;
+    margin: auto;
+}
+
+.inptFld {
+    width: 100%;
+    height: 50px;
+    border: 0;
+    margin: 0 0 10px;
+    border-radius: 8px;
+    padding: 0 20px;
+    font-size: 16px;
+    color: #000;
+}
+
+.inptFld:focus {
+    outline-offset: -4px;
+    outline: 1px #3461f3;
+}
+
+.contFrm textarea {
+    height: 75px;
+    padding-top: 5px;
+}
+.inptBtn {
+    height: 50px;
+    border: 0;
+    background: #3754b5;
+    font-size: 14px;
+    color: #fff;
+    /*margin: auto;*/
+    cursor: pointer;
+    width: 100%;
+    max-width: 200px;
+    margin-bottom: 5px;
+    transition: background-color 0.3s;
+}
+
+.inptBtn:hover{
+    background-color: #142563;
 }
