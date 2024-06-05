@@ -29,6 +29,102 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="exam-table-create" author="Marcin Zaczeniuk">
+        <createTable tableName="exam">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="duration" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creator_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="examined_users" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="is_active" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="exam"
+                                 baseColumnNames="creator_id"
+                                 constraintName="fk_exam_user"
+                                 referencedTableName="app_user"
+                                 referencedColumnNames="id"/>
 
+    </changeSet>
+
+    <changeSet id="question-table-create" author="Marcin Zaczeniuk">
+        <createTable tableName="question">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="exam_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="question_text" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="question_type" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="question"
+                                 baseColumnNames="exam_id"
+                                 constraintName="fk_question_exam"
+                                 referencedTableName="exam"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="answer-table-create" author="Marcin Zaczeniuk">
+        <createTable tableName="answer">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="question_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="answer_text" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_correct" type="BOOLEAN"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="answer"
+                                 baseColumnNames="question_id"
+                                 constraintName="fk_answer_question"
+                                 referencedTableName="question"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    
+    <changeSet id="exam_result-table-create" author="Marcin Zaczeniuk">
+        <createTable tableName="exam_result">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT"/>
+            <column name="exam_id" type="BIGINT"/>
+            <column name="score" type="INT"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="exam_result"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_exam_result_app_user"
+                                 referencedTableName="app_user"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="exam_result"
+                                 baseColumnNames="exam_id"
+                                 constraintName="fk_exam_result_exam"
+                                 referencedTableName="exam"
+                                 referencedColumnNames="id"/>
+    </changeSet>
 
 </databaseChangeLog>

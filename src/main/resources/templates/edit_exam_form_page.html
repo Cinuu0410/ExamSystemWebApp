@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Exam System</title>
-    <link rel="stylesheet" th:href="@{/css/confirmation_page_style.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/edit_exam_form_page_style.css}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/1571ce0189.js" crossorigin="anonymous"></script>
 </head>
@@ -45,33 +46,46 @@
 </div>
 
 <div class="container">
-    <br><br><br><br>
-    <h1>Formularz został pomyślnie wysłany</h1>
-    <p>Dziękujemy, <span th:text="${name}"></span>, za skontaktowanie się z nami. Oto szczegóły, które nam przekazałeś:</p>
-    <p><b>Twój adres e-mail:</b> <span th:text="${email}"></span></p>
-    <p><b>Twój numer telefonu:</b> <span th:text="${phone}"></span></p>
-    <p><b>Temat:</b> <span th:text="${subject}"></span></p>
-    <p><b>Wiadomość:</b> <span th:text="${message}"></span></p>
-    <p>Wkrótce otrzymasz odpowiedź na Twoje zgłoszenie.</p>
-    <button onclick="goBack()" class="btn btn-secondary">Powrót</button>
+    <form th:action="@{/edit/{id}(id=${exam.id})}" method="post">
+        <input type="hidden" name="id" th:value="${exam.id}">
+        <div class="form-group">
+            <label for="name">Nazwa egzaminu:</label>
+            <input type="text" id="name" name="name" class="form-control" th:value="${exam.name}">
+        </div>
+        <div class="form-group">
+            <label for="description">Opis egzaminu:</label>
+            <textarea id="description" name="description" class="form-control" th:value="${exam.description}">Opis</textarea>
+        </div>
+        <div class="form-group">
+            <label for="date">Data egzaminu:</label>
+            <input type="date" id="date" name="date" class="form-control" th:value="${#dates.format(exam.date, 'yyyy-MM-dd')}">
+        </div>
+        <div class="form-group">
+            <label for="duration">Czas trwania (w minutach):</label>
+            <input type="number" id="duration" name="duration" class="form-control" th:value="${exam.duration}">
+        </div>
+        <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+    </form>
 </div>
+
 <footer>
     <p>&copy; 2024 ExamSystem. Wszystkie prawa zastrzeżone.</p>
 </footer>
+
 <script>
-    function goBack() {
-        window.history.back();
-    }
     function toggleMenu() {
         var sideMenu = document.querySelector('.side-menu');
         sideMenu.classList.toggle('open');
     }
+
     function redirectToLogin() {
         window.location.href = "/login";
     }
+
     function redirectToRegister() {
         window.location.href = "/register";
     }
+
     function logout() {
         window.location.href = "/logout";
     }
