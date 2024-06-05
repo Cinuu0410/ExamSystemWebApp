@@ -38,6 +38,12 @@
                 <a href="/admin_panel">Panel administratora</a>
             </span>
         <a href="/main_page">Strona główna</a>
+        <span th:if="${role eq 'Egzaminator'}">
+            <a href="/exams">Egzaminy</a>
+        </span>
+        <span th:if="${role eq 'Egzaminowany'}">
+            <a href="/available_exams">Dostępne egzaminy</a>
+        </span>
         <a href="/contact_us">Kontakt</a>
         <a href="/about_us">O nas</a>
     </nav>

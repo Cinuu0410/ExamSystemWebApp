@@ -39,4 +39,189 @@
     </insert>
 </changeSet>
 
+    <!--  TABELA EXAM  -->
+    <changeSet id="exam-table-inserts" author="Marcin Zaczeniuk">
+        <insert tableName="exam">
+            <column name="name" value="Zaliczenie Frameworki i bilbioteki internetowe"/>
+            <column name="description" value="Zaliczenie od 51%"/>
+            <column name="date" value="2024-06-5"/>
+            <column name="duration" value="90"/>
+            <column name="creator_id" value="2"/>
+            <column name="examined_users" value="3"/>
+            <column name="is_active" value="false"/>
+        </insert>
+        <insert tableName="exam">
+            <column name="name" value="Zaliczenie Cyfrowe Przetwarzanie Obrazów"/>
+            <column name="description" value="Zaliczenie od 51%"/>
+            <column name="date" value="2024-06-16"/>
+            <column name="duration" value="45"/>
+            <column name="creator_id" value="2"/>
+            <column name="examined_users" value="3,4"/>
+            <column name="is_active" value="false"/>
+        </insert>
+    </changeSet>
+
+    <!--  TABELA QUESTION  -->
+    <changeSet id="question-table-inserts" author="Marcin Zaczeniuk">
+        <insert tableName="question">
+            <column name="exam_id" value="1"/>
+            <column name="question_text" value="Jaki jest najpopularnieszy framework do języka Python?"/>
+            <column name="question_type" value="multiple-choice question"/>
+        </insert>
+        <insert tableName="question">
+            <column name="exam_id" value="1"/>
+            <column name="question_text" value="Jaki jest najpopularnieszy framework do języka Java?"/>
+            <column name="question_type" value="multiple-choice question"/>
+        </insert>
+        <insert tableName="question">
+            <column name="exam_id" value="1"/>
+            <column name="question_text" value="Który z wymienionych jest frameworkiem PHP?"/>
+            <column name="question_type" value="multiple-choice question"/>
+        </insert>
+        <insert tableName="question">
+            <column name="exam_id" value="1"/>
+            <column name="question_text" value="Co oznacza skrót MVC w kontekście frameworków webowych?"/>
+            <column name="question_type" value="multiple-choice question"/>
+        </insert>
+        <insert tableName="question">
+            <column name="exam_id" value="1"/>
+            <column name="question_text" value="Jak nazywa się najpopularniejszy framework JavaScript?"/>
+            <column name="question_type" value="multiple-choice question"/>
+        </insert>
+        <insert tableName="question">
+            <column name="exam_id" value="1"/>
+            <column name="question_text" value="Która z wymienionych opcji nie jest frameworkiem JavaScript?"/>
+            <column name="question_type" value="multiple-choice question"/>
+        </insert>
+    </changeSet>
+
+    <!--  TABELA ANSWER  -->
+    <changeSet id="answer-table-inserts" author="Marcin Zaczeniuk">
+<!--        Pytanie 1-->
+        <insert tableName="answer">
+            <column name="question_id" value="1"/>
+            <column name="answer_text" value="Django"/>
+            <column name="is_correct" value="true"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="1"/>
+            <column name="answer_text" value="Flask"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="1"/>
+            <column name="answer_text" value="Pyramid"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="1"/>
+            <column name="answer_text" value="Tornado"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+<!--        Pytanie 2-->
+        <insert tableName="answer">
+            <column name="question_id" value="2"/>
+            <column name="answer_text" value="Struts"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="2"/>
+            <column name="answer_text" value="Spring"/>
+            <column name="is_correct" value="true"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="2"/>
+            <column name="answer_text" value="JSF"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="2"/>
+            <column name="answer_text" value="Grails"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+        <!-- Pytanie 3-->
+        <insert tableName="answer">
+            <column name="question_id" value="3"/>
+            <column name="answer_text" value="Laravel"/>
+            <column name="is_correct" value="true"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="3"/>
+            <column name="answer_text" value="Symfony"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="3"/>
+            <column name="answer_text" value="Express.js"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="3"/>
+            <column name="answer_text" value="Django"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+        <!-- Pytanie 4-->
+        <insert tableName="answer">
+            <column name="question_id" value="4"/>
+            <column name="answer_text" value="Model-View-Controller"/>
+            <column name="is_correct" value="true"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="4"/>
+            <column name="answer_text" value="Model-View-Component"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="4"/>
+            <column name="answer_text" value="Most Valuable Code"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="4"/>
+            <column name="answer_text" value="Mega-Versatile Code"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+        <!-- Pytanie 5-->
+        <insert tableName="answer">
+            <column name="question_id" value="5"/>
+            <column name="answer_text" value="React"/>
+            <column name="is_correct" value="true"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="5"/>
+            <column name="answer_text" value="Angular"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="5"/>
+            <column name="answer_text" value="Vue.js"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="5"/>
+            <column name="answer_text" value="Ember.js"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+        <!-- Pytanie 6-->
+        <insert tableName="answer">
+            <column name="question_id" value="6"/>
+            <column name="answer_text" value="jQuery"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="6"/>
+            <column name="answer_text" value="Bootstrap"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="6"/>
+            <column name="answer_text" value="Node.js"/>
+            <column name="is_correct" value="true"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="question_id" value="6"/>
+            <column name="answer_text" value="Django"/>
+            <column name="is_correct" value="false"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

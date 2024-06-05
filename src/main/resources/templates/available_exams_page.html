@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Exam System</title>
-    <link rel="stylesheet" th:href="@{/css/confirmation_page_style.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/available_exams_page_style.css}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/1571ce0189.js" crossorigin="anonymous"></script>
 </head>
@@ -45,33 +46,65 @@
 </div>
 
 <div class="container">
-    <br><br><br><br>
-    <h1>Formularz został pomyślnie wysłany</h1>
-    <p>Dziękujemy, <span th:text="${name}"></span>, za skontaktowanie się z nami. Oto szczegóły, które nam przekazałeś:</p>
-    <p><b>Twój adres e-mail:</b> <span th:text="${email}"></span></p>
-    <p><b>Twój numer telefonu:</b> <span th:text="${phone}"></span></p>
-    <p><b>Temat:</b> <span th:text="${subject}"></span></p>
-    <p><b>Wiadomość:</b> <span th:text="${message}"></span></p>
-    <p>Wkrótce otrzymasz odpowiedź na Twoje zgłoszenie.</p>
-    <button onclick="goBack()" class="btn btn-secondary">Powrót</button>
+    <h2>Witaj na stronie z dostępnymi egzaminami</h2>
+    <p>Możesz przystąpić do następujących egzaminów:</p>
+    <div th:if="${exams.size() > 0}">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Opis</th>
+                <th>Data egzaminu</th>
+                <th>Czas trwania</th>
+                <th>Akcje</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="exam : ${exams}">
+                <td th:text="${exam.name}">Nazwa egzaminu</td>
+                <td th:text="${exam.description}">Opis egzaminu</td>
+                <td th:text="${#dates.format(exam.date, 'yyyy-MM-dd')}">2024-01-01</td>
+                <td th:text="${exam.duration + ' minut'}">60 minut</td>
+                <td>
+                        <span th:if="${exam.isActive}">
+                            <a th:href="@{'/start_exam/' + ${exam.id}}"
+                               th:if="${#dates.format(exam.date, 'yyyy-MM-dd') == #dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+                               class="btn btn-primary">Przystąp</a>
+                            <span th:unless="${#dates.format(exam.date, 'yyyy-MM-dd') == #dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+                                Egzamin niedostępny
+                            </span>
+                        </span>
+                    <span th:unless="${exam.isActive}">
+                            Egzamin niedostępny
+                        </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${exams.size() == 0}">
+        <p>Nie jesteś przypisany do żadnego egzaminu.</p>
+    </div>
 </div>
+
 <footer>
     <p>&copy; 2024 ExamSystem. Wszystkie prawa zastrzeżone.</p>
 </footer>
+
 <script>
-    function goBack() {
-        window.history.back();
-    }
     function toggleMenu() {
         var sideMenu = document.querySelector('.side-menu');
         sideMenu.classList.toggle('open');
     }
+
     function redirectToLogin() {
         window.location.href = "/login";
     }
+
     function redirectToRegister() {
         window.location.href = "/register";
     }
+
     function logout() {
         window.location.href = "/logout";
     }

@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Exam System</title>
-    <link rel="stylesheet" th:href="@{/css/confirmation_page_style.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/exam_submit_success_page_style.css}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/1571ce0189.js" crossorigin="anonymous"></script>
 </head>
@@ -44,34 +45,34 @@
     </nav>
 </div>
 
+
 <div class="container">
-    <br><br><br><br>
-    <h1>Formularz został pomyślnie wysłany</h1>
-    <p>Dziękujemy, <span th:text="${name}"></span>, za skontaktowanie się z nami. Oto szczegóły, które nam przekazałeś:</p>
-    <p><b>Twój adres e-mail:</b> <span th:text="${email}"></span></p>
-    <p><b>Twój numer telefonu:</b> <span th:text="${phone}"></span></p>
-    <p><b>Temat:</b> <span th:text="${subject}"></span></p>
-    <p><b>Wiadomość:</b> <span th:text="${message}"></span></p>
-    <p>Wkrótce otrzymasz odpowiedź na Twoje zgłoszenie.</p>
-    <button onclick="goBack()" class="btn btn-secondary">Powrót</button>
+    <h1>Egzamin został wysłany</h1>
+    <p>Twoje odpowiedzi do egzaminu zostały zapisane</p>
 </div>
+<div class="container">
+    <h2>Wynik Twojego egzaminu to:</h2>
+    <p th:text="${examResult} + ' %'"></p>
+</div>
+
 <footer>
     <p>&copy; 2024 ExamSystem. Wszystkie prawa zastrzeżone.</p>
 </footer>
+
 <script>
-    function goBack() {
-        window.history.back();
-    }
     function toggleMenu() {
         var sideMenu = document.querySelector('.side-menu');
         sideMenu.classList.toggle('open');
     }
+
     function redirectToLogin() {
         window.location.href = "/login";
     }
+
     function redirectToRegister() {
         window.location.href = "/register";
     }
+
     function logout() {
         window.location.href = "/logout";
     }

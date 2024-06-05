@@ -6,7 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.exam.system.B4_2024_ExamSystem.Model.Exam;
 import pl.exam.system.B4_2024_ExamSystem.Model.User;
+import pl.exam.system.B4_2024_ExamSystem.Service.ExamService;
 import pl.exam.system.B4_2024_ExamSystem.Service.UserService;
 import pl.exam.system.B4_2024_ExamSystem.Enum.UserRole;
 
@@ -18,6 +20,9 @@ public class ExamSystemController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ExamService examService;
 
 
     @GetMapping("/main_page")
@@ -67,7 +72,6 @@ public class ExamSystemController {
         if (loggedInUser != null) {
             Long userId = loggedInUser.getId();
             String loggedRole = userService.getRole(userId);
-            System.out.println("Zalogowany:" + loggedRole);
             session.setAttribute("loggedInUser", loggedInUser);
             session.setAttribute("role", loggedRole);
             model.addAttribute("loggedInUser", loggedInUser);
@@ -80,8 +84,55 @@ public class ExamSystemController {
     public String aboutUsPage(Model model, HttpSession session){
         User loggedInUser = (User) session.getAttribute("loggedInUser");
         if (loggedInUser != null) {
+            Long userId = loggedInUser.getId();
+            String loggedRole = userService.getRole(userId);
+            session.setAttribute("loggedInUser", loggedInUser);
+            session.setAttribute("role", loggedRole);
             model.addAttribute("loggedInUser", loggedInUser);
+            model.addAttribute("role", loggedRole);
         }
         return "about_us_page";
     }
+
+    @GetMapping("/exams")
+    public String examsPage(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser != null) {
+            Long userId = loggedInUser.getId();
+            String loggedRole = userService.getRole(userId);
+            session.setAttribute("loggedInUser", loggedInUser);
+            session.setAttribute("role", loggedRole);
+
+            List<Exam> exams = examService.getExamsForCreator(userId);
+            model.addAttribute("examinedUsers", examService.getExaminedUsers());
+            System.out.println(exams);
+            model.addAttribute("loggedInUser", loggedInUser);
+            model.addAttribute("role", loggedRole);
+            model.addAttribute("exams", exams);
+        } else {
+            return "redirect:/login";
+        }
+        return "exams_page";
+    }
+
+    @GetMapping("/available_exams")
+    public String availableExamsPage(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser != null) {
+            Long userId = loggedInUser.getId();
+            String loggedRole = userService.getRole(userId);
+            List<Exam> availableExams = examService.getExamsForUser(loggedInUser);
+
+            session.setAttribute("loggedInUser", loggedInUser);
+            session.setAttribute("role", loggedRole);
+
+            model.addAttribute("loggedInUser", loggedInUser);
+            model.addAttribute("role", loggedRole);
+            model.addAttribute("exams", availableExams);
+        }else{
+            return "redirect:/login";
+        }
+        return "available_exams_page";
+    }
+
 }
