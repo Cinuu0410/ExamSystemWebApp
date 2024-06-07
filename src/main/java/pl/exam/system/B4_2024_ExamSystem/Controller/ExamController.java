@@ -1,16 +1,21 @@
 package pl.exam.system.B4_2024_ExamSystem.Controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.exam.system.B4_2024_ExamSystem.Model.Answer;
 import pl.exam.system.B4_2024_ExamSystem.Model.Exam;
 import pl.exam.system.B4_2024_ExamSystem.Model.Question;
 import pl.exam.system.B4_2024_ExamSystem.Model.User;
+import pl.exam.system.B4_2024_ExamSystem.Service.AnswerService;
 import pl.exam.system.B4_2024_ExamSystem.Service.ExamService;
+import pl.exam.system.B4_2024_ExamSystem.Service.QuestionService;
 import pl.exam.system.B4_2024_ExamSystem.Service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +27,12 @@ public class ExamController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private QuestionService questionService;
+
+    @Autowired
+    private AnswerService answerService;
 
 
     @PostMapping("/exams/add")
@@ -45,27 +56,34 @@ public class ExamController {
     }
 
     // Metoda do wyświetlania formularza edycji egzaminu
-    @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable("id") Long id, Model model) {
-        Exam exam = examService.getExamById(id);
+    @GetMapping("/edit/{examId}")
+    public String showEditForm(@PathVariable Long examId, Model model) {
+        Exam exam = examService.getExamById(examId);
+        System.out.println("Exam ID: " + exam.getId());
+
+        List<Question> questions = examService.getQuestionsForExam(examId);
+        System.out.println("Pytania w edycji: " + questions);
 
         model.addAttribute("exam", exam);
+        model.addAttribute("questions", questions);
 
         return "edit_exam_form_page";
     }
 
     // Metoda do obsługi zapisu edytowanego egzaminu
-    @PostMapping("/edit/{id}")
-    public String editExam(HttpSession session, @PathVariable("id") Long id, @ModelAttribute("exam") Exam editedExam) {
+    @PostMapping("/edit/{examId}")
+    public String editExam(HttpSession session, @PathVariable("examId") Long examId, @ModelAttribute("exam") Exam editedExam) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
-        Exam existingExam = examService.getExamById(id);
+        Exam existingExam = examService.getExamById(examId);
 
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
-        editedExam.setId(id);
+        editedExam.setId(examId);
         editedExam.setCreatorId(loggedInUser.getId());
         editedExam.setExaminedUsers(existingExam.getExaminedUsers());
+
+
         examService.saveExam(editedExam);
 
         return "redirect:/exams";

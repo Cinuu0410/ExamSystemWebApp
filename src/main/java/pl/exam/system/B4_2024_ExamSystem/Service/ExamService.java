@@ -52,6 +52,7 @@ public class ExamService {
 
 
     public List<Question> getQuestionsForExam(Long examId) {
+        System.out.println("Service Pytania: " + questionRepository.findByExamId(examId));
         return questionRepository.findByExamId(examId);
     }
 
