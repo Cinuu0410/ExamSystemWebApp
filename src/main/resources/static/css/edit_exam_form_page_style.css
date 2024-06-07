@@ -104,14 +104,13 @@ h1 {
 
 
 footer {
-    margin-top: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
     background-color: #004080;
     color: white;
     text-align: center;
     padding: 1rem 0;
-    bottom: 0;
-    width: 100%;
-    position: fixed;
 }
 
 .container {
@@ -174,4 +173,8 @@ footer {
 
 .table td {
     vertical-align: middle;
+}
+
+.exam-content {
+    padding-bottom: 100px; /* Zapewnia odstęp na dole dla stopki */
 }

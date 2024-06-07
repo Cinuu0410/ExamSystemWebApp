@@ -41,6 +41,9 @@ public class Exam {
     @Column(name = "is_active")
     private boolean isActive;
 
+    @OneToMany(mappedBy = "examId", cascade = CascadeType.ALL)
+    private List<Question> questions;
+
     public void setExaminedUserIds(List<Long> userIds) {
         this.examinedUsers = userIds.stream()
                 .map(String::valueOf)
