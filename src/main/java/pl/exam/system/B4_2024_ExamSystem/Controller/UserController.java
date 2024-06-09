@@ -38,13 +38,13 @@ public class UserController {
 
         userService.saveUser(newUser);
         redirectAttributes.addFlashAttribute("successMessage", "Pomyślnie dodano użytkownika!");
-        return "redirect:/admin_panel_page";
+        return "redirect:/admin_panel";
     }
 
     @PostMapping("/deleteUser/{userId}")
     public String deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
-        return "redirect:/admin_panel_page";
+        return "redirect:/admin_panel";
     }
 
 }

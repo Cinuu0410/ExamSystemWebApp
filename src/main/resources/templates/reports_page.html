@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Exam System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/main_page_style.css}">
+    <link rel="stylesheet" th:href="@{/css/reports_page_style.css}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/1571ce0189.js" crossorigin="anonymous"></script>
 </head>
@@ -24,10 +24,6 @@
         </div>
     </div>
 </header>
-
-<div class="banner">
-    <img th:src="@{/images/baner.jpg}" alt="zdjecie">
-</div>
 
 <div class="toolbar-menu">
     <nav class="side-menu">
@@ -52,38 +48,64 @@
     </nav>
 </div>
 
+
+<div class="report-content">
 <div class="container">
-    <h2>Witamy w ExamSystem</h2>
-    <br>
-    <p>ExamSystem to nowoczesna aplikacja do przeprowadzania egzaminów online. Nasza platforma oferuje szereg funkcji, które ułatwiają tworzenie, zarządzanie i przeprowadzanie egzaminów w sposób bezpieczny i efektywny.</p>
-    <br>
-    <span th:unless="${loggedInUser}">
-        <p class="login-register-text">
-            <span>Jeżeli posiadasz konto:</span>
-            <button type="button" class="btn btn-secondary login-button" onclick="redirectToLogin()">Zaloguj się</button>
-            <span>lub</span>
-            <span>zarejestruj się teraz:</span>
-            <button type="button" class="btn btn-secondary register-button" onclick="redirectToRegister()">Zarejestruj się</button>
-        </p>
-    </span>
+    <h2>Lista zgłoszeń:</h2>
+    <div class="reports">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID problemu</th>
+                <th>Opis problemu</th>
+                <th>Imię zgłaszającego</th>
+                <th>Email</th>
+                <th>Numer telefonu</th>
+                <th>Temat</th>
+                <th>Status</th>
+                <th>Akcje</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="report : ${reports}">
+                <td th:text="${report.id}"></td>
+                <td th:text="${report.description}"></td>
+                <td th:text="${report.name}"></td>
+                <td th:text="${report.email}"></td>
+                <td th:text="${report.phone}"></td>
+                <td th:text="${report.subject}"></td>
+                <td th:text="${report.isResolved ? 'rozwiązany' : 'nierozwiązany'}"></td>
+                <td>
+                    <button class="btn btn-primary">Odpowiedz</button>
+                    <form th:action="@{/markAsResolved/{id}(id=${report.id})}" method="post" th:unless="${report.isResolved}">
+                        <button class="btn btn-success">Oznacz jako rozwiązany</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </div>
 
 <footer>
     <p>&copy; 2024 ExamSystem. Wszystkie prawa zastrzeżone.</p>
 </footer>
 
-
 <script>
     function toggleMenu() {
         var sideMenu = document.querySelector('.side-menu');
         sideMenu.classList.toggle('open');
     }
+
     function redirectToLogin() {
         window.location.href = "/login";
     }
+
     function redirectToRegister() {
         window.location.href = "/register";
     }
+
     function logout() {
         window.location.href = "/logout";
     }

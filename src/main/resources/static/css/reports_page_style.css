@@ -1,0 +1,138 @@
+body, html {
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #054181;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1px;
+}
+
+.menu-toggle,
+.close-menu-toggle {
+    cursor: pointer;
+    color: #fff;
+    background-color: #33518a !important;
+    border: 2px solid #243f95 !important;
+}
+
+.menu-toggle i,
+.close-menu-toggle i {
+    font-size: 24px;
+    margin-right: 5px;
+    color: #fff;
+}
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #004080;
+    padding-top: 25px;
+    padding-left: 20px;
+    transition: left 0.3s;
+    z-index: 2;
+}
+
+.side-menu a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+.side-menu a:hover {
+    background-color: #518add;
+}
+
+.side-menu.open {
+    left: 0;
+}
+
+h1 {
+    margin: 0;
+}
+
+.btn-secondary {
+    margin-right: 10px;
+    background-color: #33518a !important;
+    border: 2px solid #243f95 !important;
+    color: #fff;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.container {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 80px; /* Zwiększamy margines dolny */
+}
+
+.report-content {
+    padding-bottom: 100px; /* Zapewnia odstęp na dole dla stopki */
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #004080;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+}
+.table {
+    margin-top: 20px;
+}
+
+.table th {
+    background-color: #054181;
+    color: white;
+    text-align: center;
+}
+
+.table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table td form,
+.table td a {
+    display: inline-block;
+    margin-right: 5px; /* Dodatkowy margines między przyciskami */
+}

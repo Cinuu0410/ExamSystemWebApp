@@ -31,8 +31,11 @@
             <i class="fas fa-times"></i> Zamknij
         </button>
         <span th:if="${role eq 'Administrator'}">
-                <a href="/admin_panel">Panel administratora</a>
-            </span>
+            <a href="/admin_panel">Panel administratora</a>
+        </span>
+        <span th:if="${role eq 'Administrator'}">
+            <a href="/reports">Zgłoszenia</a>
+        </span>
         <a href="/main_page">Strona główna</a>
         <span th:if="${role eq 'Egzaminator'}">
             <a href="/exams">Egzaminy</a>
@@ -44,6 +47,7 @@
         <a href="/about_us">O nas</a>
     </nav>
 </div>
+
 <div class="exam-content">
 <div class="container">
     <form action="/submit_exam/{examId}" method="post" th:action="@{'/submit_exam/' + ${examId}}">

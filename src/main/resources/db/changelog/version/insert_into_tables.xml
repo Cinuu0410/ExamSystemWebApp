@@ -44,7 +44,7 @@
         <insert tableName="exam">
             <column name="name" value="Zaliczenie Frameworki i bilbioteki internetowe"/>
             <column name="description" value="Zaliczenie od 51%"/>
-            <column name="date" value="2024-06-06"/>
+            <column name="date" value="2024-06-09"/>
             <column name="duration" value="90"/>
             <column name="creator_id" value="2"/>
             <column name="examined_users" value="3"/>
