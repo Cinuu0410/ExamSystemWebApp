@@ -15,7 +15,9 @@ import pl.exam.system.B4_2024_ExamSystem.Service.ExamService;
 import pl.exam.system.B4_2024_ExamSystem.Service.QuestionService;
 import pl.exam.system.B4_2024_ExamSystem.Service.UserService;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -72,7 +74,7 @@ public class ExamController {
 
     // Metoda do obsługi zapisu edytowanego egzaminu
     @PostMapping("/edit/{examId}")
-    public String editExam(HttpSession session, @PathVariable("examId") Long examId, @ModelAttribute("exam") Exam editedExam) {
+    public String editExam(HttpSession session, @PathVariable("examId") Long examId, @ModelAttribute("exam") Exam editedExam, @RequestParam Map<String, String> requestParams) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
@@ -83,11 +85,12 @@ public class ExamController {
         editedExam.setCreatorId(loggedInUser.getId());
         editedExam.setExaminedUsers(existingExam.getExaminedUsers());
 
-
         examService.saveExam(editedExam);
 
         return "redirect:/exams";
     }
+
+
 
     //Ropoczęcie egzaminu przez egzaminatora
     @PostMapping("/start_exam")

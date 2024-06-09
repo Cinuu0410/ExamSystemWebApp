@@ -1,5 +1,6 @@
 package pl.exam.system.B4_2024_ExamSystem.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.aspectj.weaver.patterns.TypePatternQuestions;
 import org.springframework.stereotype.Service;
 import pl.exam.system.B4_2024_ExamSystem.Model.*;

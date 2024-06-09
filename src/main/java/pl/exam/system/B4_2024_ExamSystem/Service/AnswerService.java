@@ -12,8 +12,4 @@ public class AnswerService {
     public AnswerService(AnswerRepository answerRepository) {
         this.answerRepository = answerRepository;
     }
-
-    public void saveAnswer(Answer answer) {
-        answerRepository.save(answer);
-    }
 }
