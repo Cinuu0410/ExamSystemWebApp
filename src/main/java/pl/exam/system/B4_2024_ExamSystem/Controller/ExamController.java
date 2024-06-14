@@ -1,12 +1,10 @@
 package pl.exam.system.B4_2024_ExamSystem.Controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.exam.system.B4_2024_ExamSystem.Model.Answer;
 import pl.exam.system.B4_2024_ExamSystem.Model.Exam;
 import pl.exam.system.B4_2024_ExamSystem.Model.Question;
 import pl.exam.system.B4_2024_ExamSystem.Model.User;
@@ -15,9 +13,6 @@ import pl.exam.system.B4_2024_ExamSystem.Service.ExamService;
 import pl.exam.system.B4_2024_ExamSystem.Service.QuestionService;
 import pl.exam.system.B4_2024_ExamSystem.Service.UserService;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -57,24 +52,22 @@ public class ExamController {
         return "redirect:/exams";
     }
 
+//    List<Question> questions = examService.getQuestionsForExam(examId);
+    //        System.out.println("Pytania w edycji: " + questions);
+//        model.addAttribute("questions", questions);
     // Metoda do wyświetlania formularza edycji egzaminu
     @GetMapping("/edit/{examId}")
     public String showEditForm(@PathVariable Long examId, Model model) {
         Exam exam = examService.getExamById(examId);
         System.out.println("Exam ID: " + exam.getId());
 
-        List<Question> questions = examService.getQuestionsForExam(examId);
-        System.out.println("Pytania w edycji: " + questions);
-
         model.addAttribute("exam", exam);
-        model.addAttribute("questions", questions);
-
         return "edit_exam_form_page";
     }
 
     // Metoda do obsługi zapisu edytowanego egzaminu
     @PostMapping("/edit/{examId}")
-    public String editExam(HttpSession session, @PathVariable("examId") Long examId, @ModelAttribute("exam") Exam editedExam, @RequestParam Map<String, String> requestParams) {
+    public String editExam(HttpSession session, @PathVariable("examId") Long examId, @ModelAttribute("exam") Exam editedExam) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
@@ -90,7 +83,30 @@ public class ExamController {
         return "redirect:/exams";
     }
 
+    @GetMapping("/edit/{examId}/questions")
+    public String showEditQuestionsForm(@PathVariable Long examId, Model model) {
+        Exam exam = examService.getExamById(examId);
+        if (exam == null) {
+            System.out.println("Exam not found");
+            return "redirect:/exams";
+        }
+        model.addAttribute("exam", exam);
+        return "redirect:/exams";
+    }
 
+    @PostMapping("/edit/{examId}/questions")
+    public String editQuestions(@PathVariable("examId") Long examId, @ModelAttribute("exam") Exam editedExam) {
+        System.out.println("Updating questions for exam: " + examId);
+        Exam existingExam = examService.getExamById(examId);
+        if (existingExam == null) {
+            System.out.println("Exam not found");
+            return "redirect:/exams";
+        }
+
+        editedExam.setId(examId);
+        examService.updateQuestionsAndAnswers(existingExam, editedExam);
+        return "redirect:/exams";
+    }
 
     //Ropoczęcie egzaminu przez egzaminatora
     @PostMapping("/start_exam")

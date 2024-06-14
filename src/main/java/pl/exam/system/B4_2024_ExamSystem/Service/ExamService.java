@@ -1,13 +1,8 @@
 package pl.exam.system.B4_2024_ExamSystem.Service;
 
-import jakarta.persistence.EntityNotFoundException;
-import org.aspectj.weaver.patterns.TypePatternQuestions;
 import org.springframework.stereotype.Service;
 import pl.exam.system.B4_2024_ExamSystem.Model.*;
-import pl.exam.system.B4_2024_ExamSystem.Repository.ExamRepository;
-import pl.exam.system.B4_2024_ExamSystem.Repository.ExamResultRepository;
-import pl.exam.system.B4_2024_ExamSystem.Repository.QuestionRepository;
-import pl.exam.system.B4_2024_ExamSystem.Repository.UserRepository;
+import pl.exam.system.B4_2024_ExamSystem.Repository.*;
 
 import java.util.List;
 import java.util.Map;
@@ -20,12 +15,14 @@ public class ExamService {
     private final UserRepository userRepository;
     private final QuestionRepository questionRepository;
     private final ExamResultRepository examResultRepository;
+    private final AnswerRepository answerRepository;
 
-    public ExamService(ExamRepository examRepository, UserRepository userRepository, QuestionRepository questionRepository, ExamResultRepository examResultRepository) {
+    public ExamService(ExamRepository examRepository, UserRepository userRepository, QuestionRepository questionRepository, ExamResultRepository examResultRepository, AnswerRepository answerRepository) {
         this.examRepository = examRepository;
         this.userRepository = userRepository;
         this.questionRepository = questionRepository;
         this.examResultRepository = examResultRepository;
+        this.answerRepository = answerRepository;
     }
 
     //Metoda do pobierania egzaminów stworzonych przez egzaminatora
@@ -119,5 +116,49 @@ public class ExamService {
 
     public void deleteExamById(Long examId) {
         examRepository.deleteById(examId);
+    }
+
+
+    public void updateQuestionsAndAnswers(Exam existingExam, Exam editedExam) {
+        System.out.println("Starting to update questions and answers for exam: " + existingExam.getId());
+
+        for (Question editedQuestion : editedExam.getQuestions()) {
+            System.out.println("Processing question: " + editedQuestion.getId() + " - " + editedQuestion.getQuestion());
+
+            if (editedQuestion.getQuestion() == null || editedQuestion.getQuestion().isEmpty()) {
+                System.out.println("Skipping question with null or empty text");
+                continue;
+            }
+
+            if (editedQuestion.getQuestionType() == null || editedQuestion.getQuestionType().isEmpty()) {
+                System.out.println("Skipping question with null or empty type");
+                continue;
+            }
+
+            Question existingQuestion = questionRepository.findById(editedQuestion.getId()).orElse(new Question());
+            System.out.println("Existing question: " + (existingQuestion.getId() != null ? existingQuestion.getId() : "new"));
+
+            existingQuestion.setQuestion(editedQuestion.getQuestion());
+            existingQuestion.setQuestionType(editedQuestion.getQuestionType());
+            existingQuestion.setExamId(existingExam.getId());
+
+            for (Answer editedAnswer : editedQuestion.getAnswers()) {
+                System.out.println("Processing answer: " + editedAnswer.getId() + " - " + editedAnswer.getAnswerText());
+
+                if (editedAnswer.getAnswerText() == null || editedAnswer.getAnswerText().isEmpty()) {
+                    System.out.println("Skipping answer with null or empty text");
+                    continue;
+                }
+
+                Answer existingAnswer = answerRepository.findById(editedAnswer.getId()).orElse(new Answer());
+                System.out.println("Existing answer: " + (existingAnswer.getId() != null ? existingAnswer.getId() : "new"));
+
+                existingAnswer.setAnswerText(editedAnswer.getAnswerText());
+                existingAnswer.setCorrect(editedAnswer.isCorrect());
+                existingAnswer.setQuestion(existingQuestion);
+                answerRepository.save(existingAnswer);
+            }
+            questionRepository.save(existingQuestion);
+        }
     }
 }
