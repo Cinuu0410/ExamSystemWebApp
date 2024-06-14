@@ -72,9 +72,8 @@
         <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
     </form>
 </div>
-</div>
 
-<div class="exam-content">
+
     <div class="container">
         <h2>Edycja pytań i odpowiedzi</h2>
         <form th:action="@{/edit/{examId}/questions(examId=${exam.id})}" method="post">
@@ -96,12 +95,18 @@
                         <input type="checkbox" th:name="'questions[' + ${questionStat.index} + '].answers[' + ${answerStat.index} + '].correct'" th:checked="${answer.correct}"> Poprawna odpowiedź
                     </label>
                 </div>
+                <hr class = "style-seven">
             </div>
             <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
         </form>
     </div>
-</div>
 
+    <div class="container">
+        <h2>Dodawanie nowych pytań i odpowiedzi</h2>
+    </div>
+
+
+</div>
 <footer>
     <p>&copy; 2024 ExamSystem. Wszystkie prawa zastrzeżone.</p>
 </footer>
