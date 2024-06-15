@@ -108,6 +108,25 @@ public class ExamController {
         return "redirect:/exams";
     }
 
+    @PostMapping("/edit/{examId}/questions/add")
+    public String addNewQuestion(
+            @PathVariable Long examId,
+            @RequestParam String newQuestionText,
+            @RequestParam String newQuestionType,
+            @RequestParam Map<String, String> newAnswers,
+            @RequestParam String correctAnswer,
+            HttpSession session) {
+
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            return "redirect:/login";
+        }
+
+        examService.addNewQuestion(examId, newQuestionText, newQuestionType, newAnswers, correctAnswer);
+
+        return "redirect:/edit/" + examId;
+    }
+
     //Ropoczęcie egzaminu przez egzaminatora
     @PostMapping("/start_exam")
     public String startExam(@RequestParam("examId") Long examId) {

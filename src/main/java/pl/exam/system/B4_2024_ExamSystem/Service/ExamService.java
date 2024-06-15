@@ -161,4 +161,38 @@ public class ExamService {
             questionRepository.save(existingQuestion);
         }
     }
+
+    public void addNewQuestion(Long examId, String newQuestionText, String newQuestionType, Map<String, String> newAnswers, String correctAnswer) {
+        Exam exam = examRepository.findById(examId).orElse(null);
+        if (exam == null) {
+            System.out.println("Exam not found for ID: " + examId);
+            return;
+        }
+
+        // Tworzenie nowego pytania
+        Question newQuestion = new Question();
+        newQuestion.setExamId(examId);
+        newQuestion.setQuestion(newQuestionText);
+        newQuestion.setQuestionType(newQuestionType);
+
+        // Zapisywanie pytania w bazie danych
+        questionRepository.save(newQuestion);
+
+        // Przetwarzanie odpowiedzi
+        int correctAnswerIndex = Integer.parseInt(correctAnswer);
+        newAnswers.forEach((key, value) -> {
+            if (key.startsWith("newAnswers")) {
+                int answerIndex = Integer.parseInt(key.replaceAll("[^0-9]", ""));
+                Answer answer = new Answer();
+                answer.setQuestion(newQuestion);
+                answer.setAnswerText(value);
+                answer.setCorrect(answerIndex == correctAnswerIndex);
+
+                // Zapisywanie odpowiedzi w bazie danych
+                answerRepository.save(answer);
+            }
+        });
+
+        System.out.println("New question and answers added for exam: " + examId);
+    }
 }
